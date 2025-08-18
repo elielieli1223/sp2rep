@@ -36,7 +36,7 @@ class CaseDigestAssigner:
 
 # Streamlit app
 st.title("📚 Case Digest Assigner")
-st.write("This app assigns cases into 6 groups while balancing the page load.")
+st.write("I<3MAMBETH.")
 
 uploaded_file = st.file_uploader("Upload a CSV file with two columns: Case Name, Number of Pages", type=["csv"])
 
