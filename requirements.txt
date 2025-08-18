@@ -2,3 +2,4 @@ streamlit
 openai 
 fpdf
 pyPDF2
+heapq
