@@ -1,4 +1,3 @@
-import heapq
 import streamlit as st
 
 class CaseDigestAssigner:
@@ -10,18 +9,19 @@ class CaseDigestAssigner:
         cases: list of tuples (case_name, num_pages)
         returns: dict {group_number: [(case_name, num_pages), ...]}
         """
-        # Initialize groups with (total_pages, group_id, cases_list)
+        # Initialize groups as (total_pages, group_id, cases_list)
         groups = [(0, group_id, []) for group_id in range(1, self.num_groups + 1)]
-        heapq.heapify(groups)  # min-heap based on total pages
 
         # Sort cases by descending number of pages (greedy balancing)
         cases_sorted = sorted(cases, key=lambda x: x[1], reverse=True)
 
         for case_name, num_pages in cases_sorted:
-            total_pages, group_id, case_list = heapq.heappop(groups)
+            # Find group with minimum pages so far
+            groups.sort(key=lambda g: g[0])
+            total_pages, group_id, case_list = groups[0]
             case_list.append((case_name, num_pages))
             total_pages += num_pages
-            heapq.heappush(groups, (total_pages, group_id, case_list))
+            groups[0] = (total_pages, group_id, case_list)
 
         # Convert to dictionary output
         assignments = {}
