@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 class CaseDigestAssigner:
     def __init__(self, num_groups=6):
@@ -40,7 +41,6 @@ st.write("This app assigns cases into 6 groups while balancing the page load.")
 uploaded_file = st.file_uploader("Upload a CSV file with two columns: Case Name, Number of Pages", type=["csv"])
 
 if uploaded_file is not None:
-    import pandas as pd
     df = pd.read_csv(uploaded_file)
 
     if "Case Name" in df.columns and "Number of Pages" in df.columns:
