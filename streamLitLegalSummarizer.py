@@ -40,7 +40,7 @@ class CaseDigestAssigner:
 st.title("📚 BLOCK D - Case Digest Assigner")
 
 st.write("### Step 1: Provide Existing Page Loads")
-existing_load_input = st.text_input("Enter existing total page loads for 7 groups (comma-separated)", "0,0,0,0,0,0")
+existing_load_input = st.text_input("Enter existing total page loads for 7 groups (comma-separated)", "0,0,0,0,0,0,0")
 try:
     existing_loads = [int(x.strip()) for x in existing_load_input.split(",")]
     if len(existing_loads) != 7:
