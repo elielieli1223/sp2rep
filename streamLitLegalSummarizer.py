@@ -37,8 +37,7 @@ class CaseDigestAssigner:
         return assignments
 
 # Streamlit app
-st.title("📚 Case Digest Assigner")
-st.write("This app assigns cases into 6 groups while balancing the page load.")
+st.title("📚 BLOCK D - Case Digest Assigner")
 
 st.write("### Step 1: Provide Existing Page Loads")
 existing_load_input = st.text_input("Enter existing total page loads for 6 groups (comma-separated)", "0,0,0,0,0,0")
@@ -85,13 +84,13 @@ if uploaded_file is not None:
         st.error("CSV must have 'Case Name' and 'Number of Pages' columns.")
 
 st.write("Or, enter cases manually:")
-case_input = st.text_area("Enter cases (format: Case Name - Pages, one per line)")
+case_input = st.text_area("Enter cases (format: Case Name = Pages, one per line)")
 
 if st.button("Assign Cases") and case_input.strip():
     try:
         cases = []
         for line in case_input.strip().split("\n"):
-            name, pages = line.split("-")
+            name, pages = line.split(" = ")
             cases.append((name.strip(), int(pages.strip())))
 
         assigner = CaseDigestAssigner(num_groups=6, existing_loads=existing_loads)
