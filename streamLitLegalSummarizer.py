@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 class CaseDigestAssigner:
-    def __init__(self, num_groups=6, existing_loads=None):
+    def __init__(self, num_groups=7, existing_loads=None):
         self.num_groups = num_groups
         # Accept existing page load per group if provided
         self.existing_loads = existing_loads if existing_loads else [0] * num_groups
@@ -40,15 +40,15 @@ class CaseDigestAssigner:
 st.title("📚 BLOCK D - Case Digest Assigner")
 
 st.write("### Step 1: Provide Existing Page Loads")
-existing_load_input = st.text_input("Enter existing total page loads for 6 groups (comma-separated)", "0,0,0,0,0,0")
+existing_load_input = st.text_input("Enter existing total page loads for 7 groups (comma-separated)", "0,0,0,0,0,0")
 try:
     existing_loads = [int(x.strip()) for x in existing_load_input.split(",")]
-    if len(existing_loads) != 6:
-        st.error("You must provide exactly 6 numbers.")
-        existing_loads = [0]*6
+    if len(existing_loads) != 7:
+        st.error("You must provide exactly 7 numbers.")
+        existing_loads = [0]*7
 except:
     st.error("Invalid format. Defaulting to zero loads.")
-    existing_loads = [0]*6
+    existing_loads = [0]*7
 
 uploaded_file = st.file_uploader("Upload a CSV file with two columns: Case Name, Number of Pages", type=["csv"])
 
@@ -58,7 +58,7 @@ if uploaded_file is not None:
     if "Case Name" in df.columns and "Number of Pages" in df.columns:
         cases = [(row["Case Name"], int(row["Number of Pages"])) for _, row in df.iterrows()]
 
-        assigner = CaseDigestAssigner(num_groups=6, existing_loads=existing_loads)
+        assigner = CaseDigestAssigner(num_groups=7, existing_loads=existing_loads)
         result = assigner.assign_cases(cases)
 
         export_data = []
@@ -93,7 +93,7 @@ if st.button("Assign Cases") and case_input.strip():
             name, pages = line.split(" = ")
             cases.append((name.strip(), int(pages.strip())))
 
-        assigner = CaseDigestAssigner(num_groups=6, existing_loads=existing_loads)
+        assigner = CaseDigestAssigner(num_groups=7, existing_loads=existing_loads)
         result = assigner.assign_cases(cases)
 
         export_data = []
